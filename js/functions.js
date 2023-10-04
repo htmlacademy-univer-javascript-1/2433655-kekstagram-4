@@ -28,6 +28,9 @@ function takeNumbers(line){
 }
 
 
+checkLength('проверяемая строка', 20);
+isPalindrome('топот');
+takeNumbers('2023 год');
 /*
 console.log(checkLength('проверяемая строка', 20)); // true
 console.log(checkLength('проверяемая строка', 18)); // true
