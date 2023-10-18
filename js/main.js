@@ -1,3 +1,1 @@
-import { generateData } from './data';
-
-generateData();
+import './data';
