@@ -27,21 +27,23 @@ function takeNumbers(line){
   return parseInt(total, 10);
 }
 
+function getMinutes(time){
+  const parsedTime = time.split(':');
+  return parseInt(parsedTime[0], 10) * 60 + parseInt(parsedTime[1], 10);
+}
+
+function timeNotOver(workStart, workEnd, meetingStart, duration){
+  const wStart = getMinutes(workStart);
+  const wEnd = getMinutes(workEnd);
+  const mStart = getMinutes(meetingStart);
+  if (mStart < wStart || mStart + duration > wEnd){
+    return false;
+  }
+  return true;
+}
+
 
 checkLength('проверяемая строка', 20);
 isPalindrome('топот');
 takeNumbers('2023 год');
-/*
-console.log(checkLength('проверяемая строка', 20)); // true
-console.log(checkLength('проверяемая строка', 18)); // true
-console.log(checkLength('проверяемая строка', 10)); // false
-console.log(isPalindrome('топот')); // true
-console.log(isPalindrome('ДовОд')); // true
-console.log(isPalindrome('Кекс')); // false
-console.log(isPalindrome('Лёша на полке клопа нашёл ')); // true
-console.log(takeNumbers('2023 год'));            // 2023
-console.log(takeNumbers('ECMAScript 2022'));     // 2022
-console.log(takeNumbers('1 кефир, 0.5 батона')); // 105
-console.log(takeNumbers('агент 007'));           // 7
-console.log(takeNumbers('а я томат'));           // NaN
-*/
+timeNotOver('08:00', '17:30', '14:00', 90);
