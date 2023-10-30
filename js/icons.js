@@ -6,7 +6,6 @@ picturesList.classList.remove('hidden');
 const pictureTemplate = document.querySelector('#picture').content;
 const data = generateData(25);
 const pictureListFragment = document.createDocumentFragment();
-
 data.forEach((element) => {
   const newPicture = pictureTemplate.cloneNode(true);
   newPicture.querySelector('.picture__img').setAttribute('src', `photos/${  element['url']}.jpg`);
@@ -15,5 +14,4 @@ data.forEach((element) => {
   newPicture.querySelector('.picture__comments').textContent = element['comments'].length;
   pictureListFragment.appendChild(newPicture);
 });
-
 picturesList.appendChild(pictureListFragment);
