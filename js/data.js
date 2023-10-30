@@ -1,4 +1,4 @@
-import {getRandomInteger, createRandomIdFromRangeGenerator, generateName} from './utils';
+import {getRandomInteger, createRandomIdFromRangeGenerator, generateName} from './utils.js';
 
 function generateMessages() {
   const messageData = [
