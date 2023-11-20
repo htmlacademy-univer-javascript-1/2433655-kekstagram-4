@@ -34,29 +34,31 @@ function generateComments(count) {
   return comments;
 }
 
-function generateObject(generatePhotoId) {
-  const itemId = generatePhotoId();
+function counterPhoto(itemId) {
   const minLikes = 15;
   const maxLikes = 200;
   const countComments = getRandomInteger(0, 30);
+  function generateObject () {
+    itemId ++;
+    return {
+      id: `photo_id/${  itemId}`,
+      url: itemId,
+      description: 'Фото',
+      likes: getRandomInteger(minLikes, maxLikes),
+      comments: generateComments(countComments)
+    };
+  }
 
-  return {
-    id: `photo_id/${  itemId}`,
-    url: itemId,
-    description: 'Фото',
-    likes: getRandomInteger(minLikes, maxLikes),
-    comments: generateComments(countComments)
-  };
+  return generateObject();
 }
 
 function generateData(number = 25) {
-  const generatePhotoId = createRandomIdFromRangeGenerator(1, 25);
+  const generatePhotoId = counterPhoto;
 
   const data = [];
   for (let i = 0; i < number; i++) {
-    data.push(generateObject(generatePhotoId));
+    data.push(generatePhotoId(i));
   }
-
   return data;
 }
 
