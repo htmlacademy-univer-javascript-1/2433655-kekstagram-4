@@ -30,5 +30,10 @@ function generateName() {
   return dataName[getRandomInteger(0, dataName.length - 1)];
 }
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, generateName};
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+
+export {getRandomInteger, createRandomIdFromRangeGenerator, generateName,
+  isEscapeKey, isEnterKey};

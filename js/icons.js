@@ -8,6 +8,7 @@ const data = generateData(25);
 const pictureListFragment = document.createDocumentFragment();
 data.forEach((element) => {
   const newPicture = pictureTemplate.cloneNode(true);
+  newPicture.querySelector('.picture__img').setAttribute('id', element['id']);
   newPicture.querySelector('.picture__img').setAttribute('src', `photos/${  element['url']}.jpg`);
   newPicture.querySelector('.picture__img').setAttribute('alt', element['description']);
   newPicture.querySelector('.picture__likes').textContent = element['likes'];
@@ -15,3 +16,5 @@ data.forEach((element) => {
   pictureListFragment.appendChild(newPicture);
 });
 picturesList.appendChild(pictureListFragment);
+
+export {data, picturesList};

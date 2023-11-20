@@ -41,7 +41,7 @@ function generateObject(generatePhotoId) {
   const countComments = getRandomInteger(0, 30);
 
   return {
-    id: itemId,
+    id: `photo_id/${  itemId}`,
     url: itemId,
     description: 'Фото',
     likes: getRandomInteger(minLikes, maxLikes),
