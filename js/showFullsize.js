@@ -16,6 +16,7 @@ const onDocumentKeydown = (evt) => {
 
 function openImage (image) {
   if (image.target.classList.contains('picture__img')){
+    image.preventDefault();
     bigPictureImage.classList.remove('hidden');
     const commentLoader = bigPictureImage.querySelector('.comments-loader');
     commentLoader.classList.remove('hidden');
@@ -43,14 +44,12 @@ function closeImage () {
 }
 
 picturesList.addEventListener('click', (evt) => {
-  evt.preventDefault();
   openImage(evt);
 });
 
 
 picturesList.addEventListener('keydown', (evt) => {
   if (isEnterKey(evt)) {
-    evt.preventDefault();
     openImage(evt);
   }
 });

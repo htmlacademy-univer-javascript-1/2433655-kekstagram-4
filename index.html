@@ -30,7 +30,7 @@
       <section class="img-upload">
         <div class="img-upload__wrapper">
           <h2 class="img-upload__title  visually-hidden">Загрузка фотографии</h2>
-          <form class="img-upload__form" id="upload-select-image" method="post" enctype="multipart/form-data" autocomplete="off">
+          <form class="img-upload__form" id="upload-select-image" action="https://29.javascript.pages.academy/kekstagram" method="post" enctype="multipart/form-data" autocomplete="off">
 
             <!-- Изначальное состояние поля для загрузки изображения -->
             <fieldset class="img-upload__start">
@@ -115,11 +115,15 @@
 
                 <!-- Добавление хэш-тегов и комментария к изображению -->
                 <fieldset class="img-upload__text text">
-                  <div class="img-upload__field-wrapper">
-                    <input class="text__hashtags" name="hashtags" placeholder="#ХэшТег">
+                  <div class="img-upload__field-wrapper" >
+                    <label class="form__item">
+                      <input type="text" class="text__hashtags" name="hashtags" placeholder="#ХэшТег" ><br>
+                    </label>
                   </div>
-                  <div class="img-upload__field-wrapper">
-                    <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea>
+                  <div class="img-upload__field-wrapper form__item">
+                    <label class="form__item">
+                      <textarea class="text__description" name="description" placeholder="Ваш комментарий..."></textarea><br>
+                    </label>
                   </div>
                 </fieldset>
 
@@ -197,7 +201,7 @@
           src=""
           alt=""
           width="35" height="35">
-      <p class="social__text">{{текст комментария}}</p>
+      <p class="social__text"></p>
     </li>
   </template>
 
@@ -237,8 +241,12 @@
     <div class="img-upload__message  img-upload__message--loading">Загружаем...</div>
   </template>
 
+
+  <script src="node_modules/pristinejs/dist/pristine.js"  type="text/javascript"></script>
   <script src="/js/functions.js"></script>
   <script src="/js/main.js" type="module"></script>
+
+
 
 </body>
 </html>
