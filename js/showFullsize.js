@@ -16,36 +16,23 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-function openImage (image) {
+function openImage(image, data) {
   if (image.target.classList.contains('picture__img')){
     image.preventDefault();
-
     const commentLoader = bigPictureImage.querySelector('.comments-loader');
     commentLoader.classList.remove('hidden');
-
-    getData()
-      .then((data) => {
-        bigPictureImage.classList.remove('hidden');
-        const commentsObj = renderComments(data, image, 0, commentLoader);
-        commentsObj();
-
-        onLoadComments = (evt) => {
-          evt.preventDefault();
-          commentsObj();
-        };
-        renderImage(image);
-        commentLoader.addEventListener('click', onLoadComments);
-      })
-      .catch(
-        (err) => {
-          showAlert(err.message);
-        }
-      );
+    bigPictureImage.classList.remove('hidden');
+    const commentsObj = renderComments(data, image, 0, commentLoader);
+    commentsObj();
+    onLoadComments = (evt) => {
+      evt.preventDefault();
+      commentsObj();
+    };
+    renderImage(image);
+    commentLoader.addEventListener('click', onLoadComments);
     document.addEventListener('keydown', onDocumentKeydown);
     document.body.classList.add('modal-open');
-
   }
-
 }
 
 function closeImage () {
@@ -57,16 +44,17 @@ function closeImage () {
   document.querySelector('.comments-loader').removeEventListener('click', onLoadComments);
 }
 
-picturesList.addEventListener('click', (evt) => {
-  openImage(evt);
-});
+const setFullsizeListeners = (data) => {
+  picturesList.addEventListener('click', (evt) => {
+    openImage(evt, data);
+  });
+  picturesList.addEventListener('keydown', (evt) => {
+    if (isEnterKey(evt)) {
+      openImage(evt, data);
+    }
+  });
+};
 
-
-picturesList.addEventListener('keydown', (evt) => {
-  if (isEnterKey(evt)) {
-    openImage(evt);
-  }
-});
 
 bigPictureCloseButton.addEventListener('click', () => {
   closeImage();
@@ -78,3 +66,4 @@ bigPictureCloseButton.addEventListener('keydown', (evt) => {
   }
 });
 
+export {setFullsizeListeners};
