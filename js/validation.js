@@ -1,7 +1,13 @@
+import { sendData } from './api.js';
+import { closeSentFormError } from './showFileForm.js';
+
 const imageForm = document.querySelector('.img-upload__form');
-
+const submitButton = imageForm.querySelector('.img-upload__submit');
 const regexp = /^#[a-zа-яё0-9]{1,19}$/i;
-
+const SubmitButtonText = {
+  IDLE: 'Сохранить',
+  SENDING: 'Сохраняю...'
+};
 
 const pristine = new Pristine(imageForm, {
   classTo: 'form__item',
@@ -50,13 +56,33 @@ pristine.addValidator(
   'введено больше 140 символов'
 );
 
-imageForm.addEventListener('submit', (evt) => {
-  const valid = pristine.validate();
-  if (valid) {
-    return true;
-  }
-  else {
-    evt.preventDefault();
-  }
-});
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = SubmitButtonText.SENDING;
+};
 
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = SubmitButtonText.IDLE;
+};
+
+const setUserFormSubmit = (onSuccess) => {
+  imageForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(new FormData(evt.target))
+        .then(onSuccess)
+        .catch(
+          (err) => {
+            closeSentFormError(err.message);
+          }
+        )
+        .finally(unblockSubmitButton);
+    }
+  });
+};
+
+export {setUserFormSubmit};

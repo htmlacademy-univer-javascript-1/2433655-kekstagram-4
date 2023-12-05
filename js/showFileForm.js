@@ -13,6 +13,8 @@ const effectsPreview = imageForm.querySelectorAll('.effects__preview');
 const scaleSmaller = imageForm.querySelector('.scale__control--smaller');
 const scaleBigger = imageForm.querySelector('.scale__control--bigger');
 const scaleValue = imageForm.querySelector('.scale__control--value');
+const successMessageTemplate = document.querySelector('#success');
+const errorMessageTemplate = document.querySelector('#error');
 
 
 const onDocumentKeydown = (evt) => {
@@ -21,6 +23,7 @@ const onDocumentKeydown = (evt) => {
     closeFileForm();
   }
 };
+
 
 const plusScale = (evt) => {
   evt.preventDefault();
@@ -77,3 +80,50 @@ fileInput.addEventListener('change', (evt) => {
   evt.preventDefault();
   openFileForm();
 });
+
+const onDocumentKeydownSuccess = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    document.removeEventListener('keydown', onDocumentKeydownSuccess);
+    document.body.removeChild(document.body.querySelector('.success'));
+  }
+};
+
+const onDocumentKeydownError = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    document.removeEventListener('keydown', onDocumentKeydownError);
+    document.body.removeChild(document.body.querySelector('.error'));
+    overlay.classList.remove('hidden');
+  }
+};
+
+function closeSentForm() {
+  closeFileForm();
+  const successMessage = successMessageTemplate.content.cloneNode(true);
+  const successButton = successMessage.querySelector('.success__button');
+  document.body.appendChild(successMessage, true);
+  successButton.addEventListener('click', (evt) => {
+    document.body.removeChild(document.body.querySelector('.success'));
+    document.removeEventListener('keydown', onDocumentKeydownSuccess);
+    evt.preventDefault();
+  });
+  document.addEventListener('keydown', onDocumentKeydownSuccess);
+}
+
+const closeSentFormError = (message) => {
+  overlay.classList.add('hidden');
+  const errorMessage = errorMessageTemplate.content.cloneNode(true);
+  const errorText = errorMessage.querySelector('.error__title');
+  errorText.textContent = `${message  }\n`;
+  const errorButton = errorMessage.querySelector('.error__button');
+  document.body.appendChild(errorMessage, true);
+  errorButton.addEventListener('click', (evt) => {
+    document.body.removeChild(document.body.querySelector('.error'));
+    document.removeEventListener('keydown', onDocumentKeydownError);
+    overlay.classList.remove('hidden');
+    evt.preventDefault();
+  });
+  document.addEventListener('keydown', onDocumentKeydownError);
+};
+export {closeSentForm, closeSentFormError};

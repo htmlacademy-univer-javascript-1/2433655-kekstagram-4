@@ -1,9 +1,8 @@
-import { data } from './icons.js';
 import { bigPictureImage } from './showFullsize.js';
 
-export function renderComments(image, startComment, commentLoader) {
+export function renderComments(data, image, startComment, commentLoader) {
   const imgId = image.target.id;
-  const comments = data.find((i) => i.id === imgId)['comments'];
+  const comments = data[imgId]['comments'];
   const commentTemplate = document.querySelector('#comment').content;
   const commentsList = document.querySelector('.social__comments');
   const commentsListFragment = document.createDocumentFragment();
