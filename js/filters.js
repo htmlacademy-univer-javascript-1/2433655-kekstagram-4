@@ -1,6 +1,4 @@
-import { getData } from './api.js';
 import { renderPhotosList } from './icons.js';
-import { showAlert } from './utils.js';
 import { debounce } from './utils.js';
 
 

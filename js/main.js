@@ -11,7 +11,6 @@ import { showAlert } from './utils.js';
 import { setUserFormSubmit } from './validation.js';
 import { closeSentForm } from './showFileForm.js';
 import { setFilterListeners } from './filters.js';
-import { debounce } from './utils.js';
 
 
 const PHOTOS_COUNT = 25;
