@@ -1,6 +1,8 @@
 import { isEscapeKey, isEnterKey } from './utils.js';
 import { picturesList } from './icons.js';
 import { renderImage, renderComments } from './renderImage.js';
+import { getData } from './api.js';
+import { showAlert } from './utils.js';
 
 export const bigPictureImage = document.querySelector('.big-picture');
 const bigPictureCloseButton = document.querySelector('.big-picture__cancel');
@@ -17,19 +19,31 @@ const onDocumentKeydown = (evt) => {
 function openImage (image) {
   if (image.target.classList.contains('picture__img')){
     image.preventDefault();
-    bigPictureImage.classList.remove('hidden');
+
     const commentLoader = bigPictureImage.querySelector('.comments-loader');
     commentLoader.classList.remove('hidden');
-    const commentsObj = renderComments(image, 0, commentLoader);
-    commentsObj();
-    onLoadComments = (evt) => {
-      evt.preventDefault();
-      commentsObj();
-    };
-    renderImage(image);
+
+    getData()
+      .then((data) => {
+        bigPictureImage.classList.remove('hidden');
+        const commentsObj = renderComments(data, image, 0, commentLoader);
+        commentsObj();
+
+        onLoadComments = (evt) => {
+          evt.preventDefault();
+          commentsObj();
+        };
+        renderImage(image);
+        commentLoader.addEventListener('click', onLoadComments);
+      })
+      .catch(
+        (err) => {
+          showAlert(err.message);
+        }
+      );
     document.addEventListener('keydown', onDocumentKeydown);
     document.body.classList.add('modal-open');
-    commentLoader.addEventListener('click', onLoadComments);
+
   }
 
 }
