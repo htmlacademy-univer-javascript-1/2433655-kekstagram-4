@@ -3,6 +3,9 @@ picturesList.classList.remove('hidden');
 const pictureTemplate = document.querySelector('#picture').content;
 
 const renderPhotosList = (photos) => {
+  picturesList.querySelectorAll('.picture').forEach((element) => {
+    picturesList.removeChild(element);
+  });
   const pictureListFragment = document.createDocumentFragment();
   photos.forEach((element) => {
     const newPicture = pictureTemplate.cloneNode(true);
