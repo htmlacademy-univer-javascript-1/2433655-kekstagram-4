@@ -63,6 +63,8 @@ function closeFileForm() {
     document.body.classList.remove('modal-open');
     scaleBigger.removeEventListener('click', plusScale);
     scaleSmaller.removeEventListener('click', minusScale);
+    imageForm.reset();
+
   }
 }
 
