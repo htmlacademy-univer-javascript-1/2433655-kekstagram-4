@@ -1,8 +1,6 @@
 import { isEscapeKey, isEnterKey } from './utils.js';
 import { picturesList } from './icons.js';
 import { renderImage, renderComments } from './renderImage.js';
-import { getData } from './api.js';
-import { showAlert } from './utils.js';
 
 export const bigPictureImage = document.querySelector('.big-picture');
 const bigPictureCloseButton = document.querySelector('.big-picture__cancel');

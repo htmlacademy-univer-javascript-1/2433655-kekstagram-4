@@ -32,6 +32,8 @@ const filterDiscussed = (photos) => {
 };
 
 const filterPhotos = (evt, filter, photosCount, photos) => {
+  document.querySelector('.img-filters__button--active').classList.remove('img-filters__button--active');
+  evt.target.classList.add('img-filters__button--active');
   evt.preventDefault();
   renderPhotosList(filter(photos).slice(0, photosCount));
 };
