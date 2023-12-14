@@ -27,7 +27,7 @@ const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const isEnterKey = (evt) => evt.key === 'Enter';
 
-const ALERT_SHOW_TIME = 5000;
+const ALERT_SHOW_TIME = 50;
 
 
 const showAlert = (message) => {
@@ -54,7 +54,7 @@ const showAlert = (message) => {
 // Функция взята из интернета и доработана
 // Источник - https://www.freecodecamp.org/news/javascript-debounce-example
 
-function debounce (callback, timeoutDelay = 500) {
+function debounce (callback, timeoutDelay = 50) {
   // Используем замыкания, чтобы id таймаута у нас навсегда приклеился
   // к возвращаемой функции с setTimeout, тогда мы его сможем перезаписывать
   let timeoutId;

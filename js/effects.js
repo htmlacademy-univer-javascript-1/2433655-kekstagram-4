@@ -4,7 +4,9 @@ const sliderElement = document.querySelector('.effect-level__slider');
 const effectsList = document.querySelectorAll('.effects__item');
 const sliderField = document.querySelector('.img-upload__effect-level');
 const effectValue = document.querySelector('.effect-value-to-form');
+const effectValueForm = document.querySelector('.effect-level__value');
 let selectedEffect = 'none';
+
 const effectsFormat = {
   'sepia': (value) => `sepia(${value})`,
   'marvin': (value) => `invert(${value}%)`,
@@ -21,6 +23,14 @@ const sliderOptionEdit = {
         max: 1,
       },
       step: 0.1,
+      format: {
+        to: function (value) {
+          return value;
+        },
+        from: function (value) {
+          return parseFloat(value).toFixed(1);
+        },
+      },
     });
     sliderElement.noUiSlider.set(1);
   },
@@ -38,10 +48,18 @@ const sliderOptionEdit = {
   'chrome': () => {
     sliderElement.noUiSlider.updateOptions({
       range: {
-        min: 0,
+        min: 0.5,
         max: 1,
       },
       step: 0.1,
+      format: {
+        to: function (value) {
+          return value;
+        },
+        from: function (value) {
+          return parseFloat(value).toFixed(1);
+        },
+      },
     });
     sliderElement.noUiSlider.set(1);
   },
@@ -85,6 +103,8 @@ effectsList.forEach((element) => {
     sliderOptionEdit[selectedEffect]();
     preview.style.filter = effectsFormat[selectedEffect](sliderElement.noUiSlider.get());
     effectValue.value = preview.style.filter;
+    effectValueForm.value = sliderElement.noUiSlider.get();
+
   });
 });
 noUiSlider.create(sliderElement, {
@@ -99,5 +119,6 @@ noUiSlider.create(sliderElement, {
 sliderElement.noUiSlider.on('update', () => {
   preview.style.filter = effectsFormat[selectedEffect](sliderElement.noUiSlider.get());
   effectValue.value = preview.style.filter;
+  effectValueForm.value = sliderElement.noUiSlider.get();
 });
 sliderField.classList.add('hidden');
