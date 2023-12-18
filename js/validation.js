@@ -16,28 +16,35 @@ const pristine = new Pristine(imageForm, {
   errorTextParent: 'form__item',
   errorTextTag: 'span',
   errorTextClass: 'form__error'
-}, false);
+});
 
 
 function validateHashTag(value) {
+  let isValidated = true;
   if (value.length === 0) {
     return true;
   }
-  const valueArr = value.split(' ');
+  const valueArr = value.split(/\s+/);
   const existHashs = [];
   if (valueArr.length > 5) {
     return false;
   }
   valueArr.forEach((element) => {
-    if (!regexp.test(element) || element in existHashs) {
-      return false;
+    if (!regexp.test(element) || existHashs.includes(element.toLowerCase())) {
+      isValidated = false;
     }
-    existHashs.push(element);
+    existHashs.push(element.toLowerCase());
   });
   if (existHashs.length === 0) {
     return false;
   }
-  return true;
+  else {
+    if (!isValidated) {
+      return false;
+    }
+    return true;
+  }
+
 }
 
 function validateComment(value) {
@@ -72,6 +79,7 @@ const setUserFormSubmit = (onSuccess) => {
 
     const isValid = pristine.validate();
     if (isValid) {
+      pristine.reset();
       blockSubmitButton();
       sendData(new FormData(evt.target))
         .then(onSuccess)
