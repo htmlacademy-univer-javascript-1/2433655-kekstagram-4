@@ -1,6 +1,7 @@
 import { isEscapeKey, isEnterKey } from './utils.js';
 import { picturesList } from './icons.js';
 import { renderImage, renderComments } from './renderImage.js';
+import { filterDefault } from './filters.js';
 
 export const bigPictureImage = document.querySelector('.big-picture');
 const bigPictureCloseButton = document.querySelector('.big-picture__cancel');
@@ -20,7 +21,7 @@ function openImage(image, data) {
     const commentLoader = bigPictureImage.querySelector('.comments-loader');
     commentLoader.classList.remove('hidden');
     bigPictureImage.classList.remove('hidden');
-    const commentsObj = renderComments(data, image, 0, commentLoader);
+    const commentsObj = renderComments(filterDefault(data), image, 0, commentLoader);
     commentsObj();
     onLoadComments = (evt) => {
       evt.preventDefault();
