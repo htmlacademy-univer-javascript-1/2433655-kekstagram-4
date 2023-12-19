@@ -1,6 +1,6 @@
 import './icons.js';
-import './showFullsize.js';
-import './showFileForm.js';
+import './big-picture.js';
+import './file-form.js';
 import './validation.js';
 import './effects.js';
 import './api.js';
@@ -9,9 +9,9 @@ import { renderPhotosList } from './icons.js';
 import { getData } from './api.js';
 import { showAlert } from './utils.js';
 import { setUserFormSubmit } from './validation.js';
-import { closeSentForm } from './showFileForm.js';
+import { closeSentForm } from './file-form.js';
 import { setFilterListeners } from './filters.js';
-import { setFullsizeListeners } from './showFullsize.js';
+import { setFullsizeListeners } from './big-picture.js';
 
 
 const PHOTOS_COUNT = 25;
