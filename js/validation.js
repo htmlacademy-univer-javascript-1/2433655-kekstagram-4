@@ -1,5 +1,5 @@
 import { sendData } from './api.js';
-import { closeSentFormError } from './showFileForm.js';
+import { closeSentFormError } from './file-form.js';
 
 const imageForm = document.querySelector('.img-upload__form');
 const submitButton = imageForm.querySelector('.img-upload__submit');
@@ -19,7 +19,7 @@ const pristine = new Pristine(imageForm, {
 });
 
 
-function validateHashTag(value) {
+const validateHashTag = (value) => {
   let isValidated = true;
   if (value.length === 0) {
     return true;
@@ -44,12 +44,9 @@ function validateHashTag(value) {
     }
     return true;
   }
+};
 
-}
-
-function validateComment(value) {
-  return value.length <= 140;
-}
+const validateComment = (value) => value.length <= 140;
 
 pristine.addValidator(
   imageForm.querySelector('.text__hashtags'),

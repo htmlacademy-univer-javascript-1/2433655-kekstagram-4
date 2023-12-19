@@ -1,6 +1,7 @@
-import { bigPictureImage } from './showFullsize.js';
+const bigPictureImage = document.querySelector('.big-picture');
 
-export function renderComments(data, image, startComment, commentLoader) {
+
+const renderComments = (data, image, startComment, commentLoader) => {
   const imgId = image.target.id;
   const comments = data[imgId]['comments'];
   const commentTemplate = document.querySelector('#comment').content;
@@ -24,13 +25,16 @@ export function renderComments(data, image, startComment, commentLoader) {
     document.querySelector('.comments-view-count').textContent = k;
     startComment += 5;
   };
-}
+};
 
-export function renderImage(image) {
+const renderImage = (image) => {
   const likesCount = image.target.parentElement.querySelector('.picture__likes').textContent;
   const commentsCount = image.target.parentElement.querySelector('.picture__comments').textContent;
   bigPictureImage.querySelector('.big-picture__img img').setAttribute('src', image.target.currentSrc);
   bigPictureImage.querySelector('.social__caption').textContent = image.target.alt;
   bigPictureImage.querySelector('.likes-count').textContent = likesCount;
   bigPictureImage.querySelector('.comments-count').textContent = commentsCount;
-}
+};
+
+
+export {renderComments, renderImage};

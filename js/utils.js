@@ -1,12 +1,15 @@
-function getRandomInteger(min, max) {
+const ALERT_SHOW_TIME = 50;
+
+
+const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
   const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
 
   return Math.floor(result);
-}
+};
 
-function createRandomIdFromRangeGenerator(min, max) {
+const createRandomIdFromRangeGenerator = (min, max) => {
   const previousValues = [];
 
   return function () {
@@ -20,15 +23,10 @@ function createRandomIdFromRangeGenerator(min, max) {
     previousValues.push(currentValue);
     return currentValue;
   };
-}
-
+};
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
-
 const isEnterKey = (evt) => evt.key === 'Enter';
-
-const ALERT_SHOW_TIME = 50;
-
 
 const showAlert = (message) => {
   const alertContainer = document.createElement('div');
@@ -51,15 +49,14 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
-
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
 
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 export {getRandomInteger, createRandomIdFromRangeGenerator,
   isEscapeKey, isEnterKey, showAlert, debounce};

@@ -17,28 +17,43 @@ const successMessageTemplate = document.querySelector('#success');
 const errorMessageTemplate = document.querySelector('#error');
 
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeFileForm();
-  }
+const scaleImage = (value) => {
+  preview.style.transform = `scale(${  Number(Number(value.slice(0, -1)) / 100)  })`;
 };
 
-
-const plusScale = (evt) => {
+const onScaleBiggerClick = (evt) => {
   evt.preventDefault();
   scaleValue.value = `${Math.min(Number(scaleValue.value.slice(0, -1)) + 25, 100)}%`;
   scaleImage(scaleValue.value);
 };
 
-const minusScale = (evt) => {
+const onScaleSmallerClick = (evt) => {
   evt.preventDefault();
   scaleValue.value = `${Math.max(Number(scaleValue.value.slice(0, -1)) - 25, 25 )}%`;
   scaleImage(scaleValue.value);
 };
 
+const closeFileForm = (func=()=>(null)) => {
+  if (!(document.activeElement === hashTag || document.activeElement === comment)) {
+    uploadFile.value = '';
+    overlay.classList.add('hidden');
+    document.body.classList.remove('modal-open');
+    scaleBigger.removeEventListener('click', onScaleBiggerClick);
+    scaleSmaller.removeEventListener('click', onScaleSmallerClick);
+    document.removeEventListener('keydown', func);
+    imageForm.reset();
+  }
+};
 
-function openFileForm() {
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    document.removeEventListener('keydown', onDocumentKeydown);
+    closeFileForm();
+  }
+};
+
+const openFileForm = () => {
   const urlImg = URL.createObjectURL(uploadFile.files[0]);
   overlay.classList.remove('hidden');
   effectsPreview.forEach((element) => {
@@ -47,34 +62,17 @@ function openFileForm() {
   preview.setAttribute('src', urlImg);
   document.addEventListener('keydown', onDocumentKeydown);
   document.body.classList.add('modal-open');
-  scaleBigger.addEventListener('click', plusScale);
-  scaleSmaller.addEventListener('click', minusScale);
-}
-
-function scaleImage(value) {
-  preview.style.transform = `scale(${  Number(Number(value.slice(0, -1)) / 100)  })`;
-}
-
-function closeFileForm() {
-  if (!(document.activeElement === hashTag || document.activeElement === comment)) {
-    uploadFile.value = '';
-    overlay.classList.add('hidden');
-    document.removeEventListener('keydown', onDocumentKeydown);
-    document.body.classList.remove('modal-open');
-    scaleBigger.removeEventListener('click', plusScale);
-    scaleSmaller.removeEventListener('click', minusScale);
-    imageForm.reset();
-
-  }
-}
+  scaleBigger.addEventListener('click', onScaleBiggerClick);
+  scaleSmaller.addEventListener('click', onScaleSmallerClick);
+};
 
 closeForm.addEventListener('click', () => {
-  closeFileForm();
+  closeFileForm(onDocumentKeydown);
 });
 
 closeForm.addEventListener('keydown', (evt) => {
   if (isEnterKey(evt)) {
-    closeFileForm();
+    closeFileForm(onDocumentKeydown);
   }
 });
 
@@ -100,7 +98,7 @@ const onDocumentKeydownError = (evt) => {
   }
 };
 
-function closeSentForm() {
+const closeSentForm = () => {
   closeFileForm();
   const successMessage = successMessageTemplate.content.cloneNode(true);
   const successButton = successMessage.querySelector('.success__button');
@@ -111,7 +109,7 @@ function closeSentForm() {
     evt.preventDefault();
   });
   document.addEventListener('keydown', onDocumentKeydownSuccess);
-}
+};
 
 const closeSentFormError = (message) => {
   overlay.classList.add('hidden');
@@ -128,4 +126,6 @@ const closeSentFormError = (message) => {
   });
   document.addEventListener('keydown', onDocumentKeydownError);
 };
+
+
 export {closeSentForm, closeSentFormError};
