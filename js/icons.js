@@ -19,4 +19,4 @@ const renderPhotosList = (photos) => {
   picturesList.appendChild(pictureListFragment);
 };
 
-export {picturesList, renderPhotosList};
+export {renderPhotosList};

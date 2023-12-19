@@ -16,28 +16,28 @@ const filterRandom = (photos) => {
   return photos;
 };
 
-function compareDefault(a, b) {
+const compareDefault = (a, b) => {
   if (a['id'] < b['id']) {
     return -1;
   } else if (a['id'] > b['id']) {
     return 1;
   }
   return 0;
-}
+};
 
 const filterDefault = (photos) => {
   photos.sort((a, b) => compareDefault(a, b));
   return photos;
 };
 
-function compareCommentLength(a, b) {
+const compareCommentLength = (a, b) => {
   if (a['comments'].length < b['comments'].length) {
     return -1;
   } else if (a['comments'].length > b['comments'].length) {
     return 1;
   }
   return 0;
-}
+};
 
 const filterDiscussed = (photos) => {
   photos.sort((a, b) => compareCommentLength(a, b));
